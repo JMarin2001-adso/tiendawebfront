@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Factura electrónica</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="assets/css/factura_elec.css">
+</head>
+<body>
+<div class="topbar">
+        <h1><i class="fa-solid fa-file-invoice"></i> Factura digital</h1>
+        <a href="panelempleado.html" class="volver">← Volver al panel</a>
+    </div>
+
+
+<div class="factura">
+    <h1>Factura electrónica</h1>
+    <p><strong>N° Pedido:</strong> <span id="factura-pedido"></span></p>
+    <p><strong>Fecha:</strong> <span id="factura-fecha"></span></p>
+
+    <hr>
+
+    <h3>Datos del cliente</h3>
+    <p id="cliente"></p>
+    <p id="direccion"></p>
+    <p id="correo"></p>
+
+    <hr>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Valor unitario</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody id="factura-productos"></tbody>
+    </table>
+
+    <h2>Total: $<span id="factura-total"></span></h2>
+
+    <button onclick="window.print()">🖨️ Imprimir factura</button>
+</div>
+
+<script src="assets/js/factura_elec.js"></script>
+</body>
+</html>

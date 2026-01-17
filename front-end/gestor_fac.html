@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Facturas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/gestor_fac.css">
+</head>
+<body>
+      <div class="topbar">
+      
+      <button class="menu-btn" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+
+  <div class="notifications">
+    <i class="fas fa-bell" id="notif-icon"></i>
+    <span id="notif-count" class="notif-count">0</span>
+    
+    <div class="notif-dropdown" id="notif-dropdown">
+      <h4>Pedidos en revisión</h4>
+      <ul id="notif-list"></ul>
+    </div>
+  </div>
+      <div class="user-info" id="user-info">
+        <span id="user-name"></span>
+        <i class="fas fa-user" id="user-icon"></i>
+
+        <div class="dropdown" id="user-dropdown">
+          <button id="logout-btn">Cerrar sesión</button>
+        </div>
+      </div>
+
+  </div>
+
+
+  
+ <nav class="sidebar" id="sidebar">
+    <h2 class="logo">Mil Aromas</h2>
+    <p class="subtitle">Panel de Empleados</p>
+
+    <a class="nav-item active" data-page="panelempleado.html">
+        <i class="fas fa-home"></i> Inicio
+    </a>
+
+    <a class="nav-item" data-page="inventario.html">
+        <i class="fas fa-box"></i> Inventario
+    </a>
+
+    <a class="nav-item" data-page="producto.html">
+        <i class="fas fa-spray-can"></i> Productos
+    </a>
+
+    <a class="nav-item" data-page="envio.html">
+        <i class="fas fa-truck"></i> Envíos
+    </a>
+
+    <a class="nav-item" data-page="clientes.html">
+        <i class="fas fa-users"></i> Clientes
+    </a>
+
+    <div class="nav-group">
+    <a class="nav-item" id="btn-transacciones">
+        <i class="fa-solid fa-tent-arrow-left-right"></i> Transacciones
+        <i class="fas fa-chevron-down arrow"></i>
+    </a>
+
+    <div class="submenu" id="submenu-transacciones">
+        <a class="nav-subitem" data-page="factura_manual.html">
+            Transacción
+        </a>
+        <a class="nav-subitem" data-page="gestor_fac.html">
+            Gestor facturas
+        </a>
+    </div>
+</div>
+
+</nav>
+    <div class="contenedor">
+        <h1>Gestión de Facturas</h1>
+        <p class="subtitulo">
+            Buscar facturas por número de documento o número de factura
+        </p>
+        <div class="busqueda">
+
+            <div class="campo">
+                <label for="documento">Documento del cliente</label>
+                <input 
+                    type="text" 
+                    id="documento" 
+                    placeholder="Ej: 123456789">
+            </div>
+
+            <div class="campo">
+                <label for="factura">Número de factura</label>
+                <input 
+                    type="text" 
+                    id="factura" 
+                    placeholder="Ej: FAC-00001">
+            </div>
+
+            <div class="acciones">
+                <button onclick="buscarFactura()">Buscar</button>
+                <button class="limpiar" onclick="limpiarBusqueda()">Limpiar</button>
+            </div>
+
+        </div>
+        <div class="tabla-contenedor">
+            <table>
+                <thead>
+                    <tr>
+                        <th>N° Factura</th>
+                        <th>Cliente</th>
+                        <th>Documento</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th>Método Pago</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaFacturas">
+                    <tr>
+                        <td colspan="8" class="mensaje">
+                            Realice una búsqueda para ver resultados
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+<div id="modalFactura" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+
+    <h2>Detalle de Factura</h2>
+
+    <div class="info-factura">
+      <p><strong>Factura:</strong> <span id="m-numero"></span></p>
+      <p><strong>Cliente:</strong> <span id="m-cliente"></span></p>
+      <p><strong>Documento:</strong> <span id="m-documento"></span></p>
+      <p><strong>Estado:</strong> <span id="m-estado"></span></p>
+    </div>
+
+    <table class="tabla-detalle">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody id="m-productos"></tbody>
+    </table>
+
+    <h3 class="total">Total: $<span id="m-total"></span></h3>
+  </div>
+</div>
+    <script src="assets/js/gestor_fac.js"></script>
+
+    <script>
+
+        function limpiarBusqueda() {
+            document.getElementById("documento").value = "";
+            document.getElementById("factura").value = "";
+            document.getElementById("tablaFacturas").innerHTML = `
+                <tr>
+                    <td colspan="8" class="mensaje">
+                        Realice una búsqueda para ver resultados
+                    </td>
+                </tr>`;
+        }
+    </script>
+
+</body>
+</html>

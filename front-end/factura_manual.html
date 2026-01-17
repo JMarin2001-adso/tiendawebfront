@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Factura Manual</title>
+    <link rel="stylesheet" href="assets/css/factura_man.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="topbar">
+    <button class="menu-btn" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="notifications">
+        <i class="fas fa-bell" id="notif-icon"></i>
+        <span id="notif-count" class="notif-count">0</span>
+        <div class="notif-dropdown" id="notif-dropdown">
+            <h4>Pedidos en revisión</h4>
+            <ul id="notif-list"></ul>
+        </div>
+    </div>
+
+    <div class="user-info">
+        <span id="user-name"></span>
+        <i class="fas fa-user" id="user-icon"></i>
+        <div class="dropdown" id="user-dropdown">
+            <button id="logout-btn">Cerrar sesión</button>
+        </div>
+    </div>
+</div>
+
+<nav class="sidebar" id="sidebar">
+    <h2 class="logo">Mil Aromas</h2>
+    <p class="subtitle">Panel de Empleados</p>
+
+    <a class="nav-item active" data-page="panelempleado.html">
+        <i class="fas fa-home"></i> Inicio
+    </a>
+    <a class="nav-item" data-page="inventario.html">
+        <i class="fas fa-box"></i> Inventario
+    </a>
+    <a class="nav-item" data-page="producto.html">
+        <i class="fas fa-spray-can"></i> Productos
+    </a>
+    <a class="nav-item" data-page="envio.html">
+        <i class="fas fa-truck"></i> Envíos
+    </a>
+    <a class="nav-item" data-page="clientes.html">
+        <i class="fas fa-users"></i> Clientes
+    </a>
+
+    <div class="nav-group">
+        <a class="nav-item" id="btn-transacciones">
+            <i class="fa-solid fa-tent-arrow-left-right"></i>
+            Transacciones
+            <i class="fas fa-chevron-down arrow"></i>
+        </a>
+        <div class="submenu" id="submenu-transacciones">
+            <a class="nav-subitem" data-page="factura_manual.html">Transacción</a>
+            <a class="nav-subitem" data-page="gestor_fac.html">Gestor facturas</a>
+        </div>
+    </div>
+</nav>
+
+<div class="main-content">
+    <div class="container">
+        <h1>Generar Factura</h1>
+
+        <section class="card">
+            <h2>Cliente</h2>
+            <div class="search-row">
+                <input type="text" id="documento" placeholder="Documento del cliente">
+                <button class="btn-primary" onclick="buscarCliente()">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="btn-add" onclick="openModal('clientModal')">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            <p id="estadoCliente"></p>
+
+            <div id="displayClient" style="display:none;" class="info-box">
+                <h4>Cliente seleccionado</h4>
+                <div id="clientDataSummary"></div>
+                <button class="btn-success" onclick="openModal('clientModal')" style="margin-top: 10px;">
+                    <i class="fas fa-edit"></i> Editar Datos
+                </button>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="header-section">
+                <h2>Productos</h2>
+                <button class="btn-add" onclick="openModal('productModal')">
+                    <i class="fas fa-cart-plus"></i> + Agregar Producto
+                </button>
+            </div>
+
+            <table id="invoiceTable">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Valor</th>
+                        <th>Subtotal</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="total">
+                Total a pagar: $<span id="totalInvoice">0</span>
+            </div>
+        </section>
+
+        <button class="btn-generate" onclick="generateInvoice()">
+            Generar Factura Final
+        </button>
+    </div>
+</div>
+
+<div class="modal" id="clientModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('clientModal')">&times;</span>
+        <h3>Datos del Cliente</h3>
+        <form id="formCliente" style="display:grid; gap: 10px;">
+            <label>Nombre Completo</label>
+            <input type="text" id="nombre">
+            
+            <label>Correo Electrónico</label>
+            <input type="email" id="correo">
+            
+            <label>Teléfono</label>
+            <input type="text" id="telefono">
+            
+            <label>Dirección</label>
+            <input type="text" id="direccion">
+
+            <button type="button" class="btn-success" onclick="guardarCliente()">
+                Guardar Cliente
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="productModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('productModal')">&times;</span>
+        <h3>Buscar Producto</h3>
+        
+        <input type="text" id="buscarProducto" onkeyup="filtrarProductos()" placeholder="Escribe el nombre del perfume...">
+        
+        <ul id="listaProductos" style="list-style: none; padding: 0; margin-top: 10px; max-height: 150px; overflow-y: auto;">
+            </ul>
+
+        <div id="detalleProducto" style="display:none; margin-top: 20px; padding: 15px; border: 1px dashed #ccc;">
+            <p><strong>Seleccionado:</strong> <span id="prodNombre"></span></p>
+            <p><strong>Stock actual:</strong> <span id="prodStock"></span></p>
+            
+            <div style="margin-top: 10px;">
+                <label>Cantidad:</label>
+                <input type="number" id="cantidadProducto" value="1" min="1" style="width: 80px; padding: 5px;">
+                <button type="button" class="btn-success" onclick="agregarProducto()">
+                    Añadir a Tabla
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalConfirmacion">
+    <div class="modal-content" style="text-align: center;">
+        <i class="fas fa-check-circle" style="font-size: 50px; color: green;"></i>
+        <h2>Factura Generada</h2>
+        <p>Número de Factura: <strong id="numeroFacturaDisplay"></strong></p>
+        <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+            <button class="btn-primary" onclick="imprimirFactura()">Imprimir</button>
+            <button class="btn-secondary" onclick="location.reload()">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<script src="assets/js/factura_man.js"></script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <title>Gestión de Inventarios</title>
+  <link rel="stylesheet" href="assets/css/inventario.css">
+</head>
+<body>
+  <div class="topbar">
+
+      <button class="menu-btn" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+
+  <div class="notifications">
+    <i class="fas fa-bell" id="notif-icon"></i>
+    <span id="notif-count" class="notif-count">0</span>
+    
+    <div class="notif-dropdown" id="notif-dropdown">
+      <h4>Pedidos en revisión</h4>
+      <ul id="notif-list"></ul>
+    </div>
+  </div>
+
+      <div class="user-info" id="user-info">
+        <span id="user-name"></span>
+        <i class="fas fa-user" id="user-icon"></i>
+
+        <div class="dropdown" id="user-dropdown">
+          <button id="logout-btn">Cerrar sesión</button>
+        </div>
+      </div>
+
+  </div>
+
+
+  
+ <nav class="sidebar" id="sidebar">
+    <h2 class="logo">Mil Aromas</h2>
+    <p class="subtitle">Panel de Empleados</p>
+
+    <a class="nav-item active" data-page="panelempleado.html">
+        <i class="fas fa-home"></i> Inicio
+    </a>
+
+    <a class="nav-item" data-page="inventario.html">
+        <i class="fas fa-box"></i> Inventario
+    </a>
+
+    <a class="nav-item" data-page="producto.html">
+        <i class="fas fa-spray-can"></i> Productos
+    </a>
+
+    <a class="nav-item" data-page="envio.html">
+        <i class="fas fa-truck"></i> Envíos
+    </a>
+
+    <a class="nav-item" data-page="clientes.html">
+        <i class="fas fa-users"></i> Clientes
+    </a>
+
+    <div class="nav-group">
+    <a class="nav-item" id="btn-transacciones">
+        <i class="fa-solid fa-tent-arrow-left-right"></i> Transacciones
+        <i class="fas fa-chevron-down arrow"></i>
+    </a>
+
+    <div class="submenu" id="submenu-transacciones">
+        <a class="nav-subitem" data-page="factura_manual.html">
+            Transacción
+        </a>
+        <a class="nav-subitem" data-page="gestor_fac.html">
+            Gestor facturas
+        </a>
+    </div>
+</div>
+</nav>
+
+
+  <div class="resumen">
+    <div class="card">
+      <h3>Total Productos</h3>
+      <p id="totalProductos">0</p>
+    </div>
+    <div class="card">
+      <h3>Total Salidas</h3>
+      <p id="totalSalidas">0</p>
+    </div>
+    <div class="card clickable" onclick="mostrarBajoStock()">
+      <h3>Stock Disponible</h3>
+      <p id="stockDisponible">0</p>
+    </div>
+  </div>
+
+  
+  <div class="buscador">
+    <input type="text" id="buscarProducto" placeholder="Buscar producto...">
+  </div>
+
+ 
+  <table id="tablaInventario">
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Precio adquirido</th>
+        <th>Cantidad</th>
+        <th>Fecha de ingreso</th>
+        <th>Proveedor</th>
+        <th>Salida</th>
+      </tr>
+    </thead>
+    <tbody id="bodyTabla">
+     
+    </tbody>
+  </table>
+
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeFormEntrada()">&times;</span>
+    <h2>Agregar Producto</h2>
+    <form id="formProducto">
+
+      <label>id_producto:</label>
+      <input type="text" id="id_producto" hidden value="0">
+      
+      <label>Producto:</label>
+      <input type="text" id="producto" required placeholder="Nombre del producto">
+
+      <label>Precio adquirido:</label>
+      <input type="number" id="precio" required step="0.01">
+
+      <label>Cantidad:</label>
+      <input type="number" id="cantidad" required>
+
+      <label>Fecha de ingreso:</label>
+      <input type="date" id="fecha" required>
+
+      <label>Proveedor:</label>
+      <select id="proveedor" required>
+        <option value="">Selecciona un proveedor</option>
+        <option value="1">Proveedor 1</option>
+        <option value="2">Proveedor 2</option>
+        <option value="3">Proveedor 3</option>
+        
+      </select>
+
+      <label>Observaciones:</label>
+      <input type="text" id="observaciones">
+
+      <button type="submit" class="btn-guardar">Guardar</button>
+    </form>
+  </div>
+</div>
+
+
+<div id="modalSalida" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeSalida()">&times;</span>
+    <h2>Registrar Salida</h2>
+
+    <form id="formSalida">
+
+      <label>Cantidad a sacar:</label>
+      <input type="number" id="salidaCantidad" required min="1">
+
+      <label>Observación:</label>
+      <input type="text" id="salidaObs">
+
+      <button type="submit" class="btn-guardar">Registrar salida</button>
+    </form>
+  </div>
+</div>
+
+
+
+  <script src="assets/js/inventario.js"></script>
+</body>
+</html>

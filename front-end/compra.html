@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finalizar Compra - Perfumería Mil Aromas</title>
+  <link rel="stylesheet" href="assets/css/compra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+  <header class="checkout-header">
+    <h1>Finalizar Compra</h1>
+    <a href="carrito.html" class="volver">&larr; Volver al carrito</a>
+  </header>
+
+  <main class="checkout-container">
+  
+    <section class="datos-cliente">
+      <h2>Datos de Envío</h2>
+
+      <form id="checkoutForm">
+        <div class="campo">
+          <label for="nombre"><i class="fa-solid fa-user"></i> Nombre completo</label>
+          <input type="text" id="nombre" required />
+        </div>
+
+        <div class="campo">
+          <label for="correo"><i class="fa-solid fa-envelope"></i> Correo electrónico</label>
+          <input type="email" id="correo" required />
+        </div>
+
+        <div class="campo">
+          <label for="telefono"><i class="fa-solid fa-phone"></i> Teléfono</label>
+          <input type="tel" id="telefono" pattern="[0-9]{10}" required />
+        </div>
+
+        <div class="campo">
+          <label for="direccion"><i class="fa-solid fa-location-dot"></i> Dirección</label>
+          <input type="text" id="direccion" required />
+        </div>
+
+        <div class="campo">
+          <label for="ciudad"><i class="fa-solid fa-city"></i> Ciudad</label>
+          <input type="text" id="ciudad" required />
+        </div>
+
+        <div class="campo">
+          <label for="postal"><i class="fa-solid fa-mail-bulk"></i> Código Postal</label>
+          <input type="text" id="postal" required />
+        </div>
+
+        <button type="submit" class="btn-finalizar">Pagar con Tarjeta o PSE 💳</button>
+      </form>
+    </section>
+
+  
+    <section class="resumen-pedido">
+      <h2>Resumen del Pedido</h2>
+      <div id="lista-pedido"></div>
+      <div class="total">
+        <p>Total a pagar:</p>
+        <span id="total-pedido">$0</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/compra.js"></script>
+</body>
+</html>

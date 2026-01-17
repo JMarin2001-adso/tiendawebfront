@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Panel de empleados - Productos</title>
+  <link rel="stylesheet" href="assets/css/producto.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <body>
+      <div class="topbar">
+
+      <button class="menu-btn" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+
+  <div class="notifications">
+    <i class="fas fa-bell" id="notif-icon"></i>
+    <span id="notif-count" class="notif-count">0</span>
+    
+    <div class="notif-dropdown" id="notif-dropdown">
+      <h4>Pedidos en revisión</h4>
+      <ul id="notif-list"></ul>
+    </div>
+  </div>
+      <div class="user-info" id="user-info">
+        <span id="user-name"></span>
+        <i class="fas fa-user" id="user-icon"></i>
+
+        <div class="dropdown" id="user-dropdown">
+          <button id="logout-btn">Cerrar sesión</button>
+        </div>
+      </div>
+
+  </div>
+
+
+
+ <nav class="sidebar" id="sidebar">
+    <h2 class="logo">Mil Aromas</h2>
+    <p class="subtitle">Panel de Empleados</p>
+
+    <a class="nav-item active" data-page="panelempleado.html">
+        <i class="fas fa-home"></i> Inicio
+    </a>
+
+    <a class="nav-item" data-page="inventario.html">
+        <i class="fas fa-box"></i> Inventario
+    </a>
+
+    <a class="nav-item" data-page="producto.html">
+        <i class="fas fa-spray-can"></i> Productos
+    </a>
+
+    <a class="nav-item" data-page="envio.html">
+        <i class="fas fa-truck"></i> Envíos
+    </a>
+
+    <a class="nav-item" data-page="clientes.html">
+        <i class="fas fa-users"></i> Clientes
+    </a>
+
+    <div class="nav-group">
+    <a class="nav-item" id="btn-transacciones">
+        <i class="fa-solid fa-tent-arrow-left-right"></i> Transacciones
+        <i class="fas fa-chevron-down arrow"></i>
+    </a>
+
+    <div class="submenu" id="submenu-transacciones">
+        <a class="nav-subitem" data-page="factura_manual.html">
+            Transacción
+        </a>
+        <a class="nav-subitem" data-page="gestor_fac.html">
+            Gestor facturas
+        </a>
+    </div>
+</div>
+
+</nav>
+  <header class="header-employee">
+    <div class="search-container">
+      <input id="buscador" type="text" placeholder="Buscar productos..." />
+    </div>
+    <div class="header-actions">
+      <button id="btn-recargar" class="small" onclick="reloadPanel()">Recargar</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <aside class="siderbar">
+        <h3>Funciones</h3>
+        <ul>
+          <li><button id="ver-todos" class="link-btn">Ver todos</button></li>
+          <li><button id="ver-ocultos" class="link-btn">Ver ocultos</button></li>
+          <li><button id="ver-ofertas" class="link-btn">Ver con oferta</button></li>
+        </ul>
+      </aside>
+
+      <section class="productos-panel" id="productos-container">
+        </section>
+    </section>
+  </main>
+
+  <div id="editModal" class="modal">
+    <div class="modal-content edit-modal">
+      <button class="close-modal" onclick="closeModal()">&times;</button>
+      <h2 id="edit-title">Editar producto</h2>
+
+      <div class="edit-grid">
+        <div class="left">
+          <div class="gallery" id="gallery">
+            </div>
+        </div>
+
+        <div class="right">
+          <label>Nombre del Producto</label>
+          <input id="edit-nombre" type="text" />
+          
+          <label>Precio Unitario</label>
+          <input id="edit-precio" type="number" step="0.01" />
+
+          <div class="discount-row">
+            <label>Descuento (%)</label>
+            <input id="edit-desc-enabled" type="checkbox" />
+            <input id="edit-desc-value" type="number" min="0" max="100" placeholder="%" />
+          </div>
+
+         <div class="actions-employee">
+          <button id="mainSaveBtn" class="btn-guardar" onclick="guardarProductoGlobal()">
+            <i class="fas fa-save"></i> Guardar Cambios
+          </button>
+          <button id="toggleHidden" class="btn-cancel">Ocultar/Mostrar</button>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Panel de empleados — Perfumería</p>
+  </footer>
+
+  <script src="assets/js/producto.js"></script>
+</body>
+</html>

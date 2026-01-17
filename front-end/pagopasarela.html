@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <title>Pago | Pasarela</title>
+    <link rel="stylesheet" href="assets/css/pagopasarela.css">
+</head>
+<body>
+    <div class="topbar">
+        <h1><i class="fas fa-credit-card"></i>Realizar pago</h1>
+        <a href="index.html" class="volver">← Volver a la tienda</a>
+    </div>
+
+    <div class="contenedor-pago">
+    <div class="card">
+
+        <h2>Resumen de tu Compra</h2>
+
+        <ul id="listaResumen" class="resumen"></ul>
+
+        <h3>Total a pagar: <span id="totalPagar">$0</span></h3>
+
+        <h2>Método de Pago</h2>
+
+        <div class="metodos">
+            <label>
+                <input type="radio" name="metodoPago" value="Tarjeta"> Tarjeta débito o crédito
+            </label>
+            <label>
+                <input type="radio" name="metodoPago" value="Nequi"> Nequi
+            </label>
+        </div>
+
+        <div id="formularioPago"></div>
+
+        <button id="btnPagar" class="btn-pagar">Confirmar Pago</button>
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="assets/js/pagopasarela.js"></script>
+</body>
+</html>

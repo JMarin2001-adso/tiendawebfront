@@ -1,0 +1,109 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tienda de perfumes</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+  <header>
+    <div class="nav-left" id="nav-left"></div>
+
+    <div class="search-container">
+      <input type="text" placeholder="Buscar perfumes..." />
+    </div>
+
+    <div class="nav-right">
+      <span onclick="toggleCategorias()">Categorías</span>
+
+      <a href="carrito.html" class="icono-carrito">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="contador-carrito">0</span>
+      </a>
+
+      <div>
+        <div class="icono-mensajes" id="btn-notificaciones">
+          <i class="fa-solid fa-bell"></i>
+          <span id="notificacion-mensaje">0</span>
+        </div>
+        <div id="notif-dropdown" class="notif-dropdown">
+          <ul id="notif-list"></ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="categoria">
+    <h3>Categorías</h3>
+    <ul>
+      <li>Amaderados</li>
+      <li>Especiales</li>
+      <li>Frescas</li>
+      <li>Orientales</li>
+      <li>Árabes</li>
+      <li>Francesas</li>
+      <li>Cítricas</li>
+      <li>Florales</li>
+    </ul>
+  </div>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h2 class="modal-title">Registrarse</h2>
+      <form id="clienteForm" class="form">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" required>
+        </div>
+        <div class="form-group">
+          <label for="correo">Email</label>
+          <input type="email" id="correo" name="correo" required>
+        </div>
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input type="tel" pattern="[0-9]{10}" id="telefono" name="telefono" required>
+        </div>
+        <div class="form-group">
+          <label for="contrasena">Contraseña</label>
+          <input type="password" id="contrasena" name="contrasena" required>
+        </div>
+        <div class="form-actions">
+          <button type="button" onclick="closeModal()" class="btn-cancel">Cancelar</button>
+          <button type="submit" class="btn-submit">Crear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <h2 class="login-title">Iniciar sesión</h2>
+      <form id="loginForm" class="form">
+        <div class="form-group">
+          <label for="correoLogin">Email</label>
+          <input type="email" id="correoLogin" name="correoLogin" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+          <label for="contrasenaLogin">Contraseña</label>
+          <input type="password" id="contrasenaLogin" name="contrasenaLogin" autocomplete="off" required>
+        </div>
+        <div class="form-actions">
+          <button type="button" onclick="closeLoginModal()" class="btn-cancel">Cancelar</button>
+          <button type="submit" class="btn-submit">Ingresar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <section class="productos" id="productos-container">
+  </section>
+
+  <footer>
+    <p>© 2025 Perfumería Mil Aromas</p>
+  </footer>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
