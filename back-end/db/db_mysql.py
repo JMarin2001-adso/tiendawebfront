@@ -1,18 +1,24 @@
 import pymysql
 import os
 from dotenv import load_dotenv
+from urllib.parse import urlparse
 
 load_dotenv()
 
-MYSQL_USER = os.environ["MYSQL_USER"]
-MYSQL_PASSWORD = os.environ["MYSQL_PASSWORD"]
-MYSQL_HOST = os.environ["MYSQL_HOST"]
-MYSQL_PORT = os.environ["MYSQL_PORT"]
 
+MYSQL_URL = os.environ["MYSQL_URL"]
+
+
+url = urlparse(MYSQL_URL)
+
+MYSQL_USER = url.username
+MYSQL_PASSWORD = url.password
+MYSQL_HOST = url.hostname
+MYSQL_PORT = url.port
+MYSQL_DATABASE = url.path.lstrip("/")  # railway
 
 class ConnectDB:
     def __init__(self):
-        # No mantenemos conexión persistente
         pass
 
     def get_connection(self):
@@ -22,8 +28,8 @@ class ConnectDB:
                 port=int(MYSQL_PORT),
                 user=MYSQL_USER,
                 password=MYSQL_PASSWORD,
-                database="tiendaweb",
-                cursorclass=pymysql.cursors.DictCursor  # Para que siempre devuelva diccionarios
+                database=MYSQL_DATABASE,
+                cursorclass=pymysql.cursors.DictCursor
             )
             print("Conexion exitosa a MYSQL")
             return connection
@@ -32,9 +38,8 @@ class ConnectDB:
             return None
 
 
-# Instancia única para acceder a la clase
-db_conn = ConnectDB()
 
+db_conn = ConnectDB()
 
 def get_db_connection():
     return db_conn.get_connection()
